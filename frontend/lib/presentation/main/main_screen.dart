@@ -23,21 +23,7 @@ class MainScreen extends StatelessWidget {
     );
 
     if (response.statusCode == 200) {
-      // final List<dynamic> data = json.decode(response.body);
-      // List<Post> posts = data.map((item) {
-      //   return Post(
-      //     item['id'],
-      //     item['boardId'],
-      //     item['postTitle'],
-      //     item['postContent'],
-      //     item['userNickname'],
-      //     item['viewCnt'],
-      //     item['likeCnt'],
-      //     item['userId'],
-      //   );
-      // }).toList();
-      // return posts;
-      final jsonData = json.decode(response.body);
+      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
       final board = Board.fromJson(jsonData);
       return board.postDtoList;
     } else {
