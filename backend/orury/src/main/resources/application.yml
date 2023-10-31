@@ -14,6 +14,10 @@ spring:
     url: ${LOCAL_DB_URL} # configuration에서 설정 필요
     username: ${LOCAL_DB_USERNAME}
     password: ${LOCAL_DB_USER_PASSWORD}
+  security:
+    user:
+      name: user
+      password: 1111
 #  # Overloaded POST 사용
 #  mvc:
 #    hiddenmethod:
@@ -26,6 +30,7 @@ logging:
         type:
           descriptor:
             sql: trace
+
 ## logging 레벨 설정
 #    root: INFO
 #    sql: ERROR
