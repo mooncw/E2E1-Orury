@@ -2,14 +2,16 @@ package com.kernel360.orury.domain.post.service;
 
 import com.kernel360.orury.domain.board.db.BoardRepository;
 import com.kernel360.orury.domain.comment.service.CommentService;
-import com.kernel360.orury.domain.post.model.PostViewRequest;
 import com.kernel360.orury.domain.post.db.PostEntity;
+import com.kernel360.orury.domain.post.db.PostImageEntity;
+import com.kernel360.orury.domain.post.db.PostImageRepository;
 import com.kernel360.orury.domain.post.db.PostRepository;
 import com.kernel360.orury.domain.post.model.PostDto;
 import com.kernel360.orury.domain.post.model.PostRequest;
 
-import com.kernel360.orury.global.domain.Api;
-import com.kernel360.orury.global.domain.Pagination;
+import com.kernel360.orury.global.common.Api;
+import com.kernel360.orury.global.common.Pagination;
+import com.kernel360.orury.global.constants.Constant;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class PostService {
 	private final PostRepository postRepository;
 	private final BoardRepository boardRepository;
 	private final PostConverter postConverter;
+	private final PostImageRepository postImageRepository;
 	private final CommentService commentService;
 
 	private static final String ADMIN = "admin";
@@ -51,6 +53,27 @@ public class PostService {
 			.updatedAt(LocalDateTime.now())
 			.build();
 		var saveEntity = postRepository.save(entity);
+
+		// 사진 이미지 저장
+		try {
+			if (!postRequest.getPostImageList().isEmpty()) {
+				for (String url : postRequest.getPostImageList()) {
+					PostImageEntity postImageEntity = PostImageEntity.builder()
+						.imageUrl(url)
+						.post(entity)
+						.createdBy(Constant.ADMIN.getMessage())
+						.createdAt(LocalDateTime.now())
+						.updatedBy(Constant.ADMIN.getMessage())
+						.updatedAt(LocalDateTime.now())
+						.build();
+					postImageRepository.save(postImageEntity);
+				}
+			}
+
+		} catch (Exception e) {
+			throw e;
+		}
+
 		return postConverter.toDto(saveEntity);
 	}
 

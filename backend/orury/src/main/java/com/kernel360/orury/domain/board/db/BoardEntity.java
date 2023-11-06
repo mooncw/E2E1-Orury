@@ -1,7 +1,7 @@
 package com.kernel360.orury.domain.board.db;
 
 import com.kernel360.orury.domain.post.db.PostEntity;
-import com.kernel360.orury.global.domain.BaseEntity;
+import com.kernel360.orury.global.common.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.OrderBy;
