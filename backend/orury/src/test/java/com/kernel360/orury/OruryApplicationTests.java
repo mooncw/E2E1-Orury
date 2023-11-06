@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -38,23 +39,24 @@ class OruryApplicationTests {
 	@Autowired
 	private ObjectMapper objectMapper; // JSON 직렬화 및 역직렬화를 위한 ObjectMapper
 
-//	@Test
-//	void createBoardTest() throws Exception {
-//		// 테스트할 데이터를 생성
-//		BoardRequest boardRequest = new BoardRequest();
-//		boardRequest.setBoardTitle("한글 들어감?");
-//
-//		// 컨트롤러 엔드포인트에 POST 요청을 보내고 결과를 검증
-//		MvcResult result = mockMvc.perform(post("/api/board") // 요청 URL을 수정
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.content(objectMapper.writeValueAsString(boardRequest)))
-//			.andExpect(status().isOk())
-//			.andReturn();
-//
-//		// 응답 데이터를 가져와서 검증
-//		String responseContent = result.getResponse().getContentAsString();
-//		System.out.println(responseContent);
-//	}
+	@Transactional
+	@Test
+	void createBoardTest() throws Exception {
+		// 테스트할 데이터를 생성
+		BoardRequest boardRequest = new BoardRequest();
+		boardRequest.setBoardTitle("롤백됨??");
+
+		// 컨트롤러 엔드포인트에 POST 요청을 보내고 결과를 검증
+		MvcResult result = mockMvc.perform(post("/api/board") // 요청 URL을 수정
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(boardRequest)))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		// 응답 데이터를 가져와서 검증
+		String responseContent = result.getResponse().getContentAsString();
+		System.out.println(responseContent);
+	}
 
 //	@Test
 //	void createBoardTest() {
