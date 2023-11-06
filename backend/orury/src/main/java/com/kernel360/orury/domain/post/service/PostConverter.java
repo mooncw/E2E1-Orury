@@ -30,7 +30,6 @@ public class PostConverter {
                 .userNickname(postEntity.getUserNickname())
                 .viewCnt(postEntity.getViewCnt())
                 .likeCnt(postEntity.getLikeCnt())
-                .isDelete(postEntity.isDelete())
                 .userId(postEntity.getUserId())
                 .createdBy(postEntity.getCreatedBy())
                 .createdAt(postEntity.getCreatedAt())
@@ -54,7 +53,6 @@ public class PostConverter {
                 .userNickname(postDto.getUserNickname())
                 .viewCnt(postDto.getViewCnt())
                 .likeCnt(postDto.getLikeCnt())
-                .isDelete(postDto.isDelete())
                 .userId(postDto.getUserId())
 
                 .createdBy(postDto.getCreatedBy())

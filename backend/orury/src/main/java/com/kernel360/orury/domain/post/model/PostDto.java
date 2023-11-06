@@ -23,7 +23,6 @@ public class PostDto {
 	private String userNickname;
 	private int viewCnt;
 	private int likeCnt;
-	private boolean isDelete;
 	private Long userId;//
 	private String createdBy;
 	private LocalDateTime createdAt;

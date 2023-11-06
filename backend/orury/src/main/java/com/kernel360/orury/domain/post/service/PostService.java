@@ -55,7 +55,7 @@ public class PostService {
 	}
 
 	public PostDto getPost(Long id) {
-		Optional<PostEntity> postEntityOptional = postRepository.findByIdAndIsDelete(id, false);
+		Optional<PostEntity> postEntityOptional = postRepository.findById(id);
 		PostEntity post = postEntityOptional.orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다: " + id));
 		return postConverter.toDto(post);
 	}
@@ -64,7 +64,7 @@ public class PostService {
 		PostRequest postRequest
 	) {
 		Long postId = postRequest.getId();
-		var postEntityOptional = postRepository.findByIdAndIsDelete(postId, false);
+		var postEntityOptional = postRepository.findById(postId);
 		var entity = postEntityOptional.orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다: " + postId));
 		var dto = postConverter.toDto(entity);
 		dto.setPostTitle(postRequest.getPostTitle());

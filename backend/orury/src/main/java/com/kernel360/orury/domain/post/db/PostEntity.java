@@ -34,7 +34,6 @@ public class PostEntity extends BaseEntity {
 	private String userNickname;
 	private int viewCnt;
 	private int likeCnt;
-	private boolean isDelete;
 	private Long userId;
 
 	@OneToMany(mappedBy = "post")
